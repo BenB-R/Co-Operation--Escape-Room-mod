@@ -1,0 +1,149 @@
+# Included files will be loaded and their contents referenced here.
+# In the event of any clashes, the _including_ file 'wins'.
+include: [ LevelsShared.yaml ]
+
+# Properties about the file like its creator
+fileProperties:
+  creatorName: Kacper
+  
+
+sceneName: World1Dev
+
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 63.0, focalLength: 300.0, aperture: 1.0 }
+
+
+grid: | # 2, 3, 4, 5, 6, 7,8, 9,10,11,12,13,14,15,16,17,18,19,20
+  gm,--,--,--,--,--,--,--,--,--,--,--,--,--,--,-/,
+  //,==,t1,x1,t1,x2,\s,k1,t1,x2,x4,\s,x2,t1,==,t1,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~
+  //,x5,rl,==,==,==,\s,p1,==,=5,==,\s,==,p4,=4,k1,
+  //,b1,=3,==,=5,==,\s,==,==,pr3,==,\s,==,==,==,==,
+  //,\e,\e,gt,\e,\e,++,\r,gp4,\e,\e,++,\r,gp1,++,gp2,
+  //,x3,==,==,==,==,\s,==,==,==,=5,\s,c1,==,\s,=3,
+  //,s1,==,=3,=3,==,\s,==,=3,=4,==,\s,==,==,\s,=5,
+  //,s1,=4,=3,=5,==,g1,==,=5,==,==,++,\r,\r,++,=4,
+  //,s1,==,==,==,==,\s,=5,==,p2,==,==,==,==,g1,pr4,
+  //,x3,==,==,k2,==,\s,==,==,==,pr1,=5,==,k1,\s,==,
+  //,\e,\e,gt,\e,\e,++,\r,\r,gs,\e,\e,\e,\e,++,\r,
+  //,k2,=5,=4,==,pr2,gp3,==,==,=4,==,==,p3,==,==,ca,
+  /-,==,=3,==,=5,==,\s,=5,=3,=4,=5,==,=3,==,=5,==,
+ 
+
+
+gridObjects:
+  
+  --: [ wall3_s]
+  //: [ wall3_e ]
+  /-: [ wall3_curve_e ]
+  -/: [ wall3_curve_s ]
+  
+  ==: [ f2 ]
+  =3: [ f3 ]
+  =4: [ f4 ]
+  =5: [ f6 ]
+  =6: [ f_curve_ne ]
+  =7: [ f_curve_se ]
+  =8: [ f_curve_sw ]
+  =9: [ f_curve_nw ]
+  
+  
+  ~~: [ ]
+  
+  x1: [ f3, poster_s_2d ]
+  x2: [ f3, chains_w  ]
+  x3: [ f3, chains_s  ]
+  x4: [ f3, web_poster_s ]
+  x5: [ f3, web_poster_w ]
+
+  #Keys
+  k1: [ f3, k1_s ]
+  k2: [ f2, k2_s ]
+  k3: [ f3, k3]
+  
+  #Coins
+
+  c1: [f4, coin1]
+
+  #decor
+  s1: [f5, Skull]
+  t1: [f3, Torch]
+  ca: [f2, Candle]
+  b1: [f6, barrel]
+
+  #Gates
+  gl: [ f3, gl_s2_key3 ]
+  gs: [ f4, gl_s_key2 ]
+  gt: [ f4, gt_s ]
+  gh: [ f5, gl_s3_key1]
+  g1: [ f2, gl_s3_key1]
+  gp1: [f3, gt_e_Press1]
+  gp2: [f3, gt_e_Press2]
+  gp3: [f2, gt_e_Press3]
+  gp4: [f3, gt_e_Press4]
+
+ 
+  #PressurePlates
+  pr1: [ f2, pr_plate1 ]
+  pr2: [ f3, pr_plate2 ]
+  pr3: [ f4, pr_plate3 ]
+  pr4: [ f3, pr_plate4 ]
+  
+  
+  # Exits
+  rl: [ f5, rl2_s ]
+  
+  # Short Objects
+  \s: [ f4, fence_s ]
+  \e: [ f3, fence_e ]
+  \r: [ f6, fence_x]
+  ¬s: [ f3, fence_edge_s ]
+  ¬w: [ f2, fence_edge_w]
+  ¬e: [ f3, fence_edge_e]
+  ++: [f4, fence_middle]
+  
+
+  p1: [ f3, p1 ]
+  p2: [ f4, p2 ]
+  p3: [ f5, p3 ]
+  p4: [ f2, p4 ]
+
+objectDefinitions:
+  # Can be defined here or, more likely, both here _and_ in LevelsShared.yaml
+  # Set-up base values in LevelsShared.yaml and override here.
+  gl_s3_key1: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'red' } } ], dir: east, art3d: [ { model: "Art/3D/GateLarge.glb", pos: {x: 0, y: -0.2, z: 0.01}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.08, y: 0.15, z: 0.05} } ], tags: [ "blocksMove", "gate" ] }
+  gl_s_key2: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'red' } } ], dir: south, art3d: [ { model: "Art/3D/GateLarge.glb", pos: {x: 0, y: -0.2, z: 0.15}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.08, y: 0.1, z: 0.1} } ], tags: [ "blocksMove", "gate" ] }
+  gl_s2_key3: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'Key3' } } ], dir: east, art3d: [ { model: "Art/3D/Gate3Solid.glb", pos: {x: -0.1, y: -0.2, z: -0.02}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.15, y: 0.43, z: 0.4} } ], tags: [ "blocksMove", "gate" ] }
+  #gl_s3_key: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'shortkey' } } ], dir: south, art3d: [ { model: "Art/3D/Gate3Solid.glb", pos: {x: -0.7, y: -0.2, z: -0.02}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.25, y: 0.5, z: 0.8} } ], tags: [ "blocksMove", "gate" ] }
+  #gp_e_Press: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'shortkey' } } ], dir: south, art3d: [ { model: "Art/3D/GateLarge.glb", pos: {x: 0, y: -0.2, z: 0.15}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.08, y: 0.1, z: 0.1} } ], tags: [ "blocksMove", "gate" ] }
+  gt_e_Press1: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'default1' } } ], dir: west, art3d: [ { model: "Art/3D/PressurePlateGate.glb", pos: {x: 0, y: 0, z: 0.85}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.2, y: 0.35, z: 0.3} } ], tags: [ "blocksMove", "gate" ] } 
+  gt_e_Press2: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'default2' } } ], dir: west, art3d: [ { model: "Art/3D/PressurePlateGate.glb", pos: {x: 0, y: 0, z: 0.85}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.2, y: 0.35, z: 0.3} } ], tags: [ "blocksMove", "gate" ] } 
+  gt_e_Press3: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'default3' } } ], dir: south, art3d: [ { model: "Art/3D/PressurePlateGate.glb", pos: {x: -0.86, y: 0, z: -0.01}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.2, y: 0.35, z: 0.3} } ], tags: [ "blocksMove", "gate" ] } 
+  gt_e_Press4: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'default4' } } ], dir: west, art3d: [ { model: "Art/3D/PressurePlateGate.glb", pos: {x: 0, y: 0, z: 0.85}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.2, y: 0.35, z: 0.3} } ], tags: [ "blocksMove", "gate" ] } 
+  
+  gt_s: { mapObject: Custom, mods: [ { name: Gate, data: { activatorType: 'blue' } } ], dir: south, art3d: [ { model: "Art/3D/GateThin.glb", pos: {x: 0, y: -0.2, z: -0.1}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.8, y: 0.7, z: 0.8} } ], tags: [ "blocksMove", "blocksThrow" ] }
+
+
+  fence_edge_w: { mapObject: Custom, dir: west, art3d: [ { model: "Art/3D/fenceCorner.glb", pos: { x: 0, y: -0.1, z: 0 }, rot: { x: 0, y: 0, z: 0 },scale: { x: 1, y: 1, z: 1 } } ], tags: [ "blocksMove", "static" ] }
+  fence_edge_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/fenceCorner.glb", pos: { x: 0, y: -0.1, z: 0 }, rot: { x: 0, y: 0, z: 0 },scale: { x: 1, y: 1, z: 1 } } ], tags: [ "blocksMove", "static" ] }
+  Skull: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/skull.glb", pos: { x: 0, y: -0.1, z: 0 }, rot: { x: 40, y: 0, z: 0 },scale: { x: 1, y: 1, z: 1 } } ], tags: [ "blocksMove", "static" ] }
+  Torch: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/torch.glb", pos: { x: 0.6, y: 1.7, z: 0 }, rot: { x: 90, y: 90, z: 0 },scale: { x: 0.5, y: 0.5, z: 0.5 } } ], tags: [ "blocksMove", "static" ] }
+  Candle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/candle1.glb", pos: { x: 0.0, y: 0, z: 0 }, rot: { x: 90, y: 90, z: 0 },scale: { x: 0.5, y: 0.5, z: 0.5 } } ], tags: [ "blocksMove", "static" ] }
+
+  coin1: { mapObject: Custom, mods: [ { name: Coin, data: { keyType: 'default' } } ], dir: south, art3d: [ { model: "Art/3D/coin.glb", pos: {x: 0, y: -0.05, z: 0}, rot: {x: 93, y: -50, z: 30}, scale: {x: 0.4, y: 0.4, z: 0.4} } ], tags: [ "static" ] }
+
+  pr_plate1: {  mapObject: Custom, mods: [ { name: PressurePlate, data: { keyType: 'default1' } } ], dir: south, art3d: [ { model: "Art/3D/pressurePlate.glb", pos: {x: 0, y: -0.05, z: 0}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.75, y: 0.5, z: 0.75}  } ], tags: [ "static" ] }
+  pr_plate2: {  mapObject: Custom, mods: [ { name: PressurePlate, data: { keyType: 'default2' } } ], dir: south, art3d: [ { model: "Art/3D/pressurePlate.glb", pos: {x: 0, y: -0.05, z: 0}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.75, y: 0.5, z: 0.75}  } ], tags: [ "static" ] }
+  pr_plate3: {  mapObject: Custom, mods: [ { name: PressurePlate, data: { keyType: 'default3' } } ], dir: south, art3d: [ { model: "Art/3D/pressurePlate.glb", pos: {x: 0, y: -0.05, z: 0}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.75, y: 0.5, z: 0.75}  } ], tags: [ "static" ] }
+  pr_plate4: {  mapObject: Custom, mods: [ { name: PressurePlate, data: { keyType: 'default4' } } ], dir: south, art3d: [ { model: "Art/3D/pressurePlate.glb", pos: {x: 0, y: -0.05, z: 0}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.75, y: 0.5, z: 0.75}  } ], tags: [ "static" ] }
+  rl2_s: { mapObject: Custom, mods: [ { name: EscapePoint, data: { locationX: 25, locationY: 1 } } ], dir: south, art3d: [ { model: "Art/3D/ropeLadderHigh.glb", pos: {x: -0.4, y: -0.05, z: 0}, rot: {x: 0, y: 0, z: 0}, scale: {x: 2.5, y: 2.5, z: 2.5} } ] }
+  gm: {mapObject: BlankStatic, mods: [{ name: GameManager, data: { turnsLeft: 14}}]}
+  scoreboard: { mapObject: Scoreboard, mods: [{ name: Scoreboard, data: { turnsLeft: 14}}], data: {DebugLog: true}, tags: [ "scoreboard" ]}
+  fence_x: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/fence.glb", pos: {x: 0, y: 0.9, z: 0}, rot: {x: 90, y: 0, z: 0},scale: {x: 0.8, y: 0.8, z: 0.8} } ], tags: [ "blocksMove", "static" ] }
+ 
+
+
+
+sounds:
+  # See CoOperation for examples using sound
+
+globalData:

@@ -1,0 +1,79 @@
+# Key Gate testing level
+
+# Included files will be loaded and their contents referenced here.
+# In the event of any clashes, the _including_ file 'wins'.
+include: [ LevelsShared.yaml ]
+
+# Properties about the file like its creator
+fileProperties:
+  creatorName: BenBR
+  
+
+sceneName: World1Dev
+
+
+grid: | # 2, 3, 4, 5, 6, 7,      8, 9,10,11
+  gm,--,--,--,--,--,--,-/
+  //,p1,==,\s,rl,\s,x1,==
+  //,\e,gs,¬s,gl,\s,pr,==
+  //,==,==,==,==,\s,==,=2
+  //,==,==,k2,==,\s,p2,~~     ,~~,~~,~~,~~
+  //,==,==,==,==,\s,==,~~
+  //,k1,==,¬e,gt,¬s,==,=1
+  /-,==,==,\s,==,==,==,=2
+
+
+gridObjects:
+  
+  --: [ wall_s ]
+  //: [ wall_e ]
+  /-: [ wall_curve_e ]
+  -/: [ wall_curve_s ]
+  
+  ==: [ f ]
+  =1: [ f_curve_ne ]
+  =2: [ f_curve_se ]
+  =3: [ f_curve_sw ]
+  =4: [ f_curve_nw ]
+  
+  ~~: [ ]
+  
+  x1: [ f, poster_s_2d ]
+
+  #Keys
+  k1: [ f, k1_s ]
+  k2: [ f, k2_s ]
+  
+  #Gates
+  gl: [ f, gl_s ]
+  gs: [ f, gl_s_key ]
+  gt: [ f, gt_s ]
+  
+  #PressurePlates
+  pr: [ f, pr_plate ]
+  
+  # Exits
+  rl: [ f, rl_s ]
+  
+  # Short Objects
+  \s: [ f, fence_s ]
+  \e: [ f, fence_e ]
+  ¬s: [ f, fence_edge_s ]
+  ¬e: [ f, fence_edge_n ]
+  
+
+  p1: [ f, p1 ]
+  p2: [ f, p2 ]
+
+objectDefinitions:
+  # Can be defined here or, more likely, both here _and_ in LevelsShared.yaml
+  # Set-up base values in LevelsShared.yaml and override here.
+  k1_s: { mapObject: key, mods: [ { name: Key, data: { keyType: 'shortkey' } } ], dir: south, art3d: [ { model: "Art/3D/Key1.glb", pos: {x: -0.3, y: -0.2, z: -0.2}, rot: {x: 0, y: -25, z: 0}, scale: {x: 0.6, y: 0.6, z: 0.6} } ], tags: [ "throwable", "carryable" ] }
+  gl_s_key: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'shortkey' } } ], dir: south, art3d: [ { model: "Art/3D/GateLarge.glb", pos: {x: 0, y: -0.2, z: 0.15}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.08, y: 0.1, z: 0.1} } ], tags: [ "blocksMove", "gate" ] }
+
+
+sounds:
+  # See CoOperation for examples using sound
+
+globalData:
+

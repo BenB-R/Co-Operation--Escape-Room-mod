@@ -1,0 +1,84 @@
+# Key Gate testing level
+
+# Included files will be loaded and their contents referenced here.
+# In the event of any clashes, the _including_ file 'wins'.
+include: [ LevelsShared.yaml ]
+
+# Properties about the file like its creator
+fileProperties:
+  creatorName: BenBR
+  
+
+sceneName: World1Dev
+
+
+grid: | # 2, 3, 4, 5, 6, 7,      8, 9,10,11
+  gm,--,--,-2,--,-2,--,-/
+  //,p1,==,\s,rl,\s,x1,==
+  //,\e,gs,¬s,gl,\s,pr,=3
+  /2,=1,==,==,=3,\s,==,=4
+  //,m1,=2,k2,==,\s,p2,~~     ,~~,~~,~~,~~
+  /2,=4,==,==,=1,\s,=1,~~
+  //,k1,=4,¬e,gt,¬s,=1,=3
+  /-,m2,==,\s,==,=4,==,==
+
+
+gridObjects:
+  
+  --: [ wall3_s ]
+  -2: [ wall3_2_s ]
+  //: [ wall3_e ]
+  /2: [ wall3_2_e ]
+  /-: [ wall3_curve_e ]
+  -/: [ wall3_curve_s ]
+  
+  ==: [ f2 ]
+  =1: [ f3 ]
+  =2: [ f4 ]
+  =3: [ f5 ]
+  =4: [ f6 ]
+  
+  ~~: [ ]
+  
+  x1: [ f2, poster_s_2d ]
+
+  #Keys
+  k1: [ f2, k1_s ]
+  k2: [ f2, k2_s ]
+  
+  #Gates
+  gl: [ f2, gl_s ]
+  gs: [ f2, gl_s_key ]
+  gt: [ f2, gt_s ]
+  
+  #PressurePlates
+  pr: [ f2, pr_plate ]
+  
+  # Exits
+  rl: [ f2, rl_s ]
+  
+  # Short Objects
+  \s: [ f2, fence_s ]
+  \e: [ f2, fence_e ]
+  ¬s: [ f2, fence_edge_s ]
+  ¬e: [ f2, fence_edge_n ]
+  
+  # Misc test
+  m1: [ f2, chains ]
+  m2: [ f3, barrel ]
+
+  p1: [ f2, p1 ]
+  p2: [ f2, p2 ]
+
+objectDefinitions:
+  # Can be defined here or, more likely, both here _and_ in LevelsShared.yaml
+  # Set-up base values in LevelsShared.yaml and override here.
+  k1_s: { mapObject: key, mods: [ { name: Key, data: { keyType: 'shortkey' } } ], dir: south, art3d: [ { model: "Art/3D/Key1.glb", pos: {x: -0.3, y: -0.2, z: -0.2}, rot: {x: 0, y: -25, z: 0}, scale: {x: 0.6, y: 0.6, z: 0.6} } ], tags: [ "throwable", "carryable" ] }
+  gl_s_key: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'shortkey' } } ], dir: south, art3d: [ { model: "Art/3D/GateLarge.glb", pos: {x: 0, y: -0.2, z: 0.15}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.08, y: 0.1, z: 0.1} } ], tags: [ "blocksMove", "gate" ] }
+
+
+sounds:
+  # See CoOperation for examples using sound
+
+globalData:
+

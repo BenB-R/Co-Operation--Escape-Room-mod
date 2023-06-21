@@ -1,0 +1,41 @@
+# For up-to-date documentation, see:
+# - https://www.mindfeastgames.com/MultiTurn/Docs/ModdersGuide.html
+# - https://www.mindfeastgames.com/MultiTurn/Docs/API.html
+# For more in-file docs, check Level_1_players_2.yaml
+
+include: [ LevelsShared.yaml ]
+
+fileProperties:
+  creatorName: Your name here!
+
+sceneName: World1Dev
+
+grid: |
+  __,--,--,--,__,
+  //,A1,B1,C1,__,
+  //,A2,B2,C2,D2,
+  //,A3,B3,__,D3,
+
+gridObjects:
+  --: [ wall_s ]
+  //: [ wall_e ]
+  A1: [ f , b_s ]
+  B1: [ f ]
+  C1: [ f ]
+  D1:
+  A2: [ f, { id: patient, data: { id: pt1 } } ]
+  B2: [ f, p3 ]
+  C2: [ f, { id: patient, data: { id: pt2 } } ]
+  D2: [ f ]
+  A3: [ f, p1 ]
+  B3: [ f ]
+  C3:
+  D3: [ f, p2 ]
+
+objectDefinitions:
+
+sounds:
+
+globalData:
+  pt1: { health: 8, need: pill, character: grace }
+  pt2: { health: 8, need: pill, character: sammi }

@@ -1,0 +1,114 @@
+# Included files will be loaded and their contents referenced here.
+# In the event of any clashes, the _including_ file 'wins'.
+include: [ LevelsShared.yaml ]
+
+# Properties about the file like its creator
+fileProperties:
+  creatorName: Kacper
+  
+
+sceneName: World1Dev
+
+postProcessing:
+  depthOfField: { enabled: false, focusDistance: 63.0, focalLength: 300.0, aperture: 1.0 }
+
+
+grid: | # 2, 3, 4, 5, 6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25
+  gm,--,--,--,--,--,--,--,--,--,--,-/
+  //,bl,bl,x3,t1,x2,t1,x1,\n,x1,x2,==,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~,~~
+  //,==,==,==,==,==,==,==,gte,==,==,rl2,==
+  //,k2,==,==,==,==,==,==,\s,bl,=4
+  //,gs,¬w,==,ca,==,==,==,\s
+  //,==,\s,==,==,==,==,k1,\s
+  //,y4,\s,s1,==,bl,==,==,\s
+  //,==,\s,==,==,==,¬e,gt,Ee
+  //,==,\s,==,ca,==,\s,==,\s
+  //,k2,\s,s1,==,==,\s,==,\s
+  //,==,\s,==,bl,bl,\s,==,\s
+  //,==,\s,bl,==,==,\s,==,\s
+  /-,p1,\s,s1,bl,bl,\s,p2,\c
+ 
+
+
+gridObjects:
+  
+  --: [ wall2_s ]
+  //: [ wall2_e ]
+  /-: [ wall2_curve_e ]
+  -/: [ wall2_curve_s ]
+  
+  ==: [ f2 ]
+  =1: [ f_curve_ne ]
+  =2: [ f_curve_se ]
+  =3: [ f_curve_sw ]
+  =4: [ f_curve_nw ]
+  
+  ~~: [ ]
+  
+  x1: [ f2, poster_s_2d ]
+  x3: [ f3, spider_poster_s ]
+  x2: [ f4, chains_w ]
+
+  y3: [ f3, spider_poster_w ]
+  y4: [ f4, tomb_poster_w ]
+
+
+  #Keys
+  k1: [ f4, k1_s ]
+  k2: [ f5, k2_s ]
+
+  #decor
+  s1: [ f2, skull ]
+  t1: [ f2, torch ]
+  ca: [ f3, candle ]
+  bl: [f4, barrel]
+  
+  #Gates
+  gl: [ f2, gl_s ]
+  gs: [ f3, gl_s_key ]
+  gt: [ f2, gt_s_key ]
+  gte: [ f3, gt_e ]
+  
+  #PressurePlates
+  pr: [ f, pr_plate ]
+  
+  # Exits
+  rl2: [ f4, rl2_s ]
+  
+  # Short Objects
+  \s: [ f2, fence_s ]
+  \e: [ f, fence_e ]
+  \n: [ f3, fence_n]
+  \c: [ f_curve_se, fence_s]
+  ¬s: [ f3, fence_corner_s ]
+  ¬e: [ f4, fence_corner_n ]
+  ¬w: [ f4, fence_corner_w ]
+  ++: [ f5, fence_e]
+  Ee: [ f4, fence_edge_w] 
+
+  p1: [ f4, p1 ]
+  p2: [ f3, p2 ]
+  p3: [ f2, p3 ]
+  p4: [ f5, p4 ]
+
+objectDefinitions:
+  # Can be defined here or, more likely, both here _and_ in LevelsShared.yaml
+  # Set-up base values in LevelsShared.yaml and override here.
+  gl_s_key: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'red' } } ], dir: south, art3d: [ { model: "Art/3D/GateLarge.glb", pos: {x: 0, y: -0.2, z: 0.15}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.08, y: 0.1, z: 0.1} } ], tags: [ "blocksMove", "gate" ] }
+  gt_s_key: { mapObject: gate, mods: [ { name: Gate, data: { activatorType: 'blue' } } ], dir: south, art3d: [ { model: "Art/3D/GateThin.glb", pos: {x: 0, y: -0.2, z: -0.1}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.8, y: 0.7, z: 0.8} } ], tags: [ "blocksMove", "gate" ] }
+ 
+  gt_e: { mapObject: Custom, mods: [ { name: Gate, data: { activatorType: 'blue' } } ], dir: east, art3d: [ { model: "Art/3D/GateThin.glb", pos: {x: 0, y: -0.2, z: -0.1}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.8, y: 0.7, z: 0.8} } ], tags: [ "blocksMove", "blocksThrow" ] }
+  rl2_s: { mapObject: Custom, mods: [ { name: EscapePoint, data: { locationX: 25, locationY: 1 } } ], dir: south, art3d: [ { model: "Art/3D/ropeLadderHigh.glb", pos: {x: -0.4, y: -0.05, z: -0.3}, rot: {x: 0, y: 0, z: 0}, scale: {x: 2.5, y: 2.5, z: 2.5} } ] }
+  # Skull: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/skull.glb", pos: { x: 0, y: -0.1, z: 0 }, rot: { x: 40, y: 0, z: 0 },scale: { x: 1, y: 1, z: 1 } } ], tags: [ "blocksMove", "static" ] }
+  Torch: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/torch.glb", pos: { x: 0.6, y: 1.7, z: 0 }, rot: { x: 90, y: 90, z: 0 },scale: { x: 0.5, y: 0.5, z: 0.5 } } ], tags: [ "blocksMove", "static" ] }
+  Candle: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/candle1.glb", pos: { x: 0.0, y: 0, z: 0 }, rot: { x: 90, y: 90, z: 0 },scale: { x: 0.5, y: 0.5, z: 0.5 } } ], tags: [ "blocksMove", "static" ] }
+  gm: {mapObject: BlankStatic, mods: [{ name: GameManager, data: { turnsLeft: 10}}]}
+  scoreboard: { mapObject: Scoreboard, mods: [{ name: Scoreboard, data: { turnsLeft: 10}}], data: {DebugLog: true}, tags: [ "scoreboard" ]}
+
+
+
+sounds:
+  # See CoOperation for examples using sound
+
+globalData:
+

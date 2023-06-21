@@ -1,0 +1,149 @@
+fileProperties:
+  creatorName: Plymouth Group T
+
+sceneName: World1Dev
+
+grid:
+
+gridObjects:
+  gm: [ gm, delay ]
+
+objectDefinitions:
+
+  # Players
+  p1: { mapObject: Player 1, mods: [ Move, Act, Throw ] }
+  p2: { mapObject: Player 2, mods: [ Move, Act, Throw ] }
+  p3: { mapObject: Player 3, mods: [ Move, Act, Throw ] }
+  p4: { mapObject: Player 4, mods: [ Move, Act, Throw ] }
+
+  # Game manager etc
+  gm: { mapObject: BlankStatic, mods: [ GameManager ] }
+  delay: { mapObject: BlankStatic, mods: [ { name: DelayPerTurn, data: { id: delayPerTurn, delayPerTurn: 1000 } } ] }
+
+  # Basic scenery for user customisation
+  f: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/floor1.glb", pos: {x: 0, y: -0.325, z: 0}, rot: {x: 90, y: 0, z: 0}, scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "floor", "static" ] }
+  f_curve_ne: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/floor_curve1.glb", pos: {x: 0.1, y: -0.325, z: -0.08}, rot: {x: 90, y: 0, z: 180}, scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "floor", "static" ] }
+  f_curve_se: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/floor_curve1.glb", pos: {x: 0, y: -0.325, z: -0.08}, rot: {x: 90, y: 0, z: 90}, scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "floor", "static" ] }
+  f_curve_sw: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/floor_curve1.glb", pos: {x: 0, y: -0.325, z: 0}, rot: {x: 90, y: 0, z: 0}, scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "floor", "static" ] }
+  f_curve_nw: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/floor_curve1.glb", pos: {x: 0.1, y: -0.325, z: 0}, rot: {x: 90, y: 0, z: 270}, scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "floor", "static" ] }
+  
+  wall_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/wall1.glb", pos: {x: -1, y: 0, z: -0.12}, rot: {x: 90, y: 90, z: 0},scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  wall_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/wall1.glb", pos: {x: 0, y: 0, z: -1}, rot: {x: 90, y: 0, z: 0},scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  wall_curve_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/wall_curve1.glb", pos: {x: -0.1, y: 0, z: -1.08}, rot: {x: 90, y: 180, z: 0},scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  wall_curve_s: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/wall_curve1.glb", pos: {x: -1, y: 0, z: -0.1}, rot: {x: 90, y: 90, z: 0},scale: {x: 0.81, y: 0.81, z: 0.81} } ], tags: [ "blocksMove", "blocksThrow", "static" ] }
+  
+  # Prefabs
+  # Base patient has 5 health and needs a syringe
+  patient: { mapObject: Patient, mods: [ Patient ], data: { health: 5, need: syringe }, tags: [ "carryable", "throwable" ] }
+
+  # Gates
+  gl_s: { 
+    mapObject: Custom, 
+    mods: [ { 
+      name: Gate, 
+      data: { activatorType: 'default' } } ], 
+    dir: south, 
+    art3d: [ { 
+      model: "Art/3D/GateLarge.glb", 
+      pos: {x: 0, y: -0.2, z: 0.15}, 
+      rot: {x: 0, y: 0, z: 0}, 
+      scale: {x: 0.08, y: 0.1, z: 0.1} 
+    } ],
+    tags: [ "blocksMove" ] 
+  }
+  
+  gt_s: { mapObject: Custom, mods: [ { name: Gate, data: { activatorType: 'tall' } } ], dir: south, art3d: [ { model: "Art/3D/GateThin.glb", pos: {x: 0, y: -0.2, z: -0.1}, rot: {x: 0, y: 0, z: 0}, scale: {x: 0.8, y: 0.7, z: 0.8} } ], tags: [ "blocksMove", "blocksThrow" ] }
+
+  # Keys
+  k1_s: { 
+    mapObject: Custom, 
+    mods: [ { 
+      name: Key, 
+      data: { keyType: 'default' } } ], 
+    dir: south, 
+    art3d: [ { 
+      model: "Art/3D/Key1.glb", 
+      pos: {x: -0.3, y: -0.2, z: -0.2}, 
+      rot: {x: 0, y: -25, z: 0}, 
+      scale: {x: 0.6, y: 0.6, z: 0.6} } ], 
+    tags: [ "throwable", "carryable" ] 
+  }
+  
+  k2_s: { mapObject: Custom, mods: [ { name: Key, data: { keyType: 'tall' } } ], dir: south, art3d: [ { model: "Art/3D/Key2.glb", pos: {x: -0.4, y: -0.05, z: -0.4}, rot: {x: 0, y: -25, z: 0}, scale: {x: 0.5, y: 0.5, z: 0.5} } ], tags: [ "throwable", "carryable" ] }
+  
+  # Pressure plates
+  pr_plate: { 
+    mapObject: Custom, 
+    mods: [ { 
+      name: PressurePlate, 
+      data: { keyType: 'default' } } ], 
+    dir: south, 
+    art3d: [ { 
+      model: "Art/3D/pressurePlate.glb", 
+      pos: {x: 0, y: -0.05, z: 0}, 
+      rot: {x: 0, y: 0, z: 0}, 
+      scale: {x: 2.5, y: 2.5, z: 2.5} } ], 
+    tags: [ "static" ] 
+  }
+  
+  #ExitPoints
+  rl_s: { 
+    mapObject: Custom, 
+    mods: [ { 
+      name: EscapePoint, 
+      data: { locationX: 11, locationY: 1 } } ], 
+    dir: south, 
+    art3d: [ { 
+      model: "Art/3D/ropeLadderHigh.glb", 
+      pos: {x: -0.4, y: -0.05, z: 0}, 
+      rot: {x: 0, y: 0, z: 0}, 
+      scale: {x: 2.5, y: 2.5, z: 2.5} } ] 
+  }
+  
+  # short obstacles
+  fence_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/fence.glb", pos: {x: 0, y: -0.1, z: 0}, rot: {x: 0, y: 0, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  fence_e: { mapObject: Custom, dir: east, art3d: [ { model: "Art/3D/fence.glb", pos: {x: 0, y: -0.1, z: 0}, rot: {x: 0, y: 0, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  fence_edge_s: { mapObject: Custom, dir: south, art3d: [ { model: "Art/3D/fenceCorner.glb", pos: {x: 0, y: -0.1, z: 0}, rot: {x: 0, y: 0, z: 0},scale: {x: 1, y: 1, z: 1} } ], tags: [ "blocksMove", "static" ] }
+  fence_edge_n: { mapObject: Custom, dir: north, art3d: [ { model: "Art/3D/fenceCorner.glb", pos: { x: 0, y: -0.1, z: 0 }, rot: { x: 0, y: 0, z: 0 },scale: { x: 1, y: 1, z: 1 } } ], tags: [ "blocksMove", "static" ] }
+
+  # 2D decal posters
+  poster_s: { mapObject: Custom, dir: north, art2d: [ { texture: "PaintingManBehindBars.jpeg", displayType: decal, projectionDistance: 0.2, pos: { x: 0.85, y: -0.1, z: 0 }, scale: { x: 1.5, y: 1.5 } } ], tags: [ "decal", "static" ] }
+  poster_e: { mapObject: Custom, dir: west, art2d: [ { texture: "MakeYourOwnWithThisTemplate.png", displayType: decal, projectionDistance: 0.2, pos: { x: 0, y: -0.1, z: 0.85 }, scale: { x: 1.5, y: 1.5 } } ], tags: [ "decal", "static" ] }
+  # 2D decal rug
+  rugWriting: { mapObject: Custom, art2d: [ { texture: "MakeYourOwnWithThisTemplate.png", displayType: decal, projectionDistance: 0.1, pos: { x: 0.8, y: -1, z: 0.5 }, rot: { x: 90, y: 180, z: 0 }, scale: { x: 4, y: 4, z: 0 } } ], tags: [ "decal", "static" ] }
+  # 2D decal bed writing!
+  bedWriting: { mapObject: Custom, art2d: [ { texture: "MakeYourOwnWithThisTemplate.png", displayType: decal, projectionDistance: 0.4, pos: { x: -0.3, y: 0, z: 0 }, rot: { x: 90, y: 180, z: 0 }, scale: { x: 0.6, y: 0.6, z: 0 } } ], tags: [ "decal", "static" ] }
+  
+  # Non-decal (flat 2D quad) floating in space
+  poster_s_2d: { mapObject: Custom, dir: south, art2d: [ { texture: "PaintingManBehindBars.jpeg", pos: { x: 0.75, y: 1, z: -0.15 }, scale: { x: 1.25, y: 1.25 }, rot: { y: 0 } } ], tags: [ "static" ] }
+  
+  # Alternative 'block' layout = same but spread over lines
+  syringe:
+    mapObject: Custom
+    dir: east
+    art3d:
+    - model: "Art/3D/Syringe.glb"
+      pos: {x: 0, y: 1.1, z: 0}
+      rot: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+    tags:
+    - "throwable"
+    - "carryable"
+    mods:
+    - name: Medicine
+      data:
+        remedy: syringe
+        # DebugLog: true
+
+music:
+  CoOperationLevelMusic: { fileNames: [ HauntedEscapeRoom.ogg ] }
+  MenuMusic: { fileNames: [ HauntedEscapeRoom.ogg ] }
+
+sounds:
+  CatchPatient: { fileNames: [ CatchPatient.wav ] }
+  PickUpPatient: { fileNames: [ PickUpPatient.wav ] }
+  PutPatientInBed: { fileNames: [ PutPatientInBed.wav ] }
+  ThrowPatient: { fileNames: [ ThrowPatient.wav ] }
+  WrongMedicine: { fileNames: [ PlayerCollide.wav ] }
+  InvalidAction: { fileNames: [ PlayerCollide.wav ] }
+  Walk: { fileNames: [ Walk1_1.ogg, Walk1_2.ogg, Walk1_3.ogg, Walk1_4.ogg ] }

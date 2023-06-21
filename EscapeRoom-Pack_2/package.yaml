@@ -1,0 +1,30 @@
+# Properties about the file like its creator
+fileProperties:
+  creatorName: Plymouth Group T
+
+# Package Info
+# Name and description will be displayed in the user interface
+packageName: EscapeRoom Pack - Tutorials
+packageDescription: Tutorial levels for the Escape Room mod pack by plymouth uni
+packageVersion: "1.0.0"
+
+levels:
+  - levelId: level1
+    levelName: How to use Keys
+    unlockedByDefault: true
+    minCuresToProgress: 1
+    levelCutscene: "" # not yet used
+    levelFiles:
+      - { playerCount: 2, fileName: "CodeTesting" }
+      - { playerCount: 3, fileName: "Level_1_players_3" }
+      - { playerCount: 4, fileName: "Level_1_players_4" }
+      
+  - levelId: level2
+    levelName: Your Package's Level 2
+    unlockedByDefault: false
+    minCuresToProgress: 1
+    levelCutscene: ""
+    levelFiles:
+      - { playerCount: 2, fileName: "Level_2_players_2" }
+      - { playerCount: 3, fileName: "Level_2_players_3" }
+      - { playerCount: 4, fileName: "Level_2_players_4" }
