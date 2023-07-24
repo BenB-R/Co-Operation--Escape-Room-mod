@@ -1,4 +1,7 @@
 ﻿--- Destroys its owner when a player enters the square
+LoadFacility('Game')
+
+owner.tags.addTag('test')
 
 local function onSiblingAdded(message)
 	-- check whether there's a player in the same square as our owner

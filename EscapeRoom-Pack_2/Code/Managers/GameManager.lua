@@ -1,70 +1,64 @@
 -- GameManagerLua
+-- Monitors for `patient.cured`, counts patients remaining and finishes the level once all done.
+-- Finishes the level by sending the `level.won` message.
 
+-- Bring in the ability to subscribe to the GameManager's message bus for game phase changes
 LoadFacility('Game')
 
-game.bus.send({ metadata = { 'playMusic' }, data = { soundName = 'CoOperationLevelMusic' } }, false)
+local numPatientsAtStart = 0
+local numPatientsCured = 0
+local numPatientsDied = 0
 
-local turnsLeft = 10 * 4
-
-local escapedPlayers = 0
-
-local coinsCollected = 0
-
-local function playerEscaped()
-	escapedPlayers = escapedPlayers + 1
-	print("Player escaped! Total escaped players: " .. escapedPlayers)
-	-- You can modify the condition to check for a specific number of escaped players
-	if escapedPlayers >= 1 then
-
-		checkEnding()
+local function getNumPatientsRemaining()
+	local iterator = game.map.getAllObjectsTagged('patient')
+	-- This gives an iterator so we iterate it and count how many there are
+	local count = 0
+	for _ in iterator do
+		count = count + 1
 	end
+	return count
 end
 
-local function coinCollected()
-	coinsCollected = coinsCollected + 1
-	print("Coin collected! Total coins collected: " .. coinsCollected)
-end
-
-function checkEnding()
-	print("checking ending")
-
-	-- Iterate through the players and count them
-	local totalPlayers = 0
-	for _ in game.map.getAllObjectsTagged('Player') do
-		totalPlayers = totalPlayers + 1
-	end
-
-	print("no error yet")
-	local playersRemaining = totalPlayers - escapedPlayers
-	print('Found '.. playersRemaining ..' players remaining')
-
-	if playersRemaining <= 0 or turnsLeft <= 0 then
-		-- You win if there are no players remaining
-		local didWin = playersRemaining == 0;
+local function checkEnding()
+	local numPatientsRemaining = getNumPatientsRemaining()
+	print('Found '.. numPatientsRemaining ..' patients remaining')
+	if 0 >= numPatientsRemaining then
+		-- You win if you cured more (since you can still cure patients who have passed-out)
+		local didWin = numPatientsCured > numPatientsDied;
 		local endingMessage = didWin and {'level.won'} or {'level.lost'}
-		print('Finishing the level with', endingMessage)
+		print('All patients done: '.. numPatientsCured ..' cured, '.. numPatientsDied ..' died = Finishing the level with', endingMessage)
 		game.bus.send(endingMessage)
 	else
 		print('Level still in-progress')
 	end
 end
 
-
-
-local function onTurnStart()
-	turnsLeft = turnsLeft - 1
-	if turnsLeft < 0 then
-		turnsLeft = 0
-	end
-	print("Turns left: " .. turnsLeft)
+local function onPatientCured()
+	numPatientsCured = numPatientsCured + 1
 	checkEnding()
 end
 
--- subscribe to know when a turn starts
-game.bus.subscribe('turnStart', onTurnStart)
--- Subscribe to know when a player escapes
-game.bus.subscribe('playerEscaped', playerEscaped)
--- Subscribe to know when a player collects a Coin
-game.bus.subscribe('coinCollected', coinCollected)
+local function onPatientDied()
+	numPatientsDied = numPatientsDied + 1
+	checkEnding()
+end
 
-print("Game Manager working")
+local function onGameManagerEventReceived(message)
+	print('GameManager received:', message)
+	-- No longer used at 2022/10/24
+	if message.data.gameManager == 'patient.cured' then
+		onPatientCured()
+	else
+		error('GameManager needs updating to handle:'.. tostring(message))
+	end
+end
+
+numPatientsAtStart = getNumPatientsRemaining()
+print('Found ' .. numPatientsAtStart ..' patients at start')
+
+-- subscribe to get informed when sent messages (not used as of 2022/10/24)
+game.bus.subscribe('gameManager', onGameManagerEventReceived)
+
+-- subscribe to know when a patient is cured
+game.bus.subscribe('patient.cured', onPatientCured)
+game.bus.subscribe('patient.died', onPatientDied)
